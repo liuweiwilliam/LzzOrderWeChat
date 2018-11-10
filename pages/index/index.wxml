@@ -1,0 +1,112 @@
+<view wx:if="{{loaded}}" class="page">
+    <view class="flex-row from-start margin-top-s margin-left-s">
+        <view class="flex-row" style='width:8%;' catchtap='scanQRCode'>
+            <image class="widgets-img" style="width:100%;" src="/images/base/scan.png" mode="widthFix" />
+        </view>
+        <input placeholder="搜索" confirm-type="搜索" bindconfirm="searchGood" class="margin-left-s" bindinput="inputSearchName" style="width:80%;padding:0;height:2em;background-color:#fbf9fe;"/>
+        <view class="flex-row" style='width:8%;' catchtap='searchGood'>
+            <image class="widgets-img" style="width:100%;" src="/images/base/search.png" mode="widthFix" />
+        </view>
+    </view>
+    <scroll-view scroll-y="true" style="height: 100%; width: 100%; display: flex; flex-direction: column; margin-top:10rpx">
+        <view style="width: 100%; height: auto; margin-bottom:10px;">
+            <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}"
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style="width:100%;height:365rpx;">
+                <block wx:for-items="{{swipers}}">
+                    <swiper-item>
+                        <image class="swiper-item" src="{{item.image}}" mode="aspectFill" data-url="{{item.url}}" catchtap='jumpUrl'/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+
+        <view class="big-logo from-start">
+            <block wx:for-items="{{menus}}">
+                <view class="logoinfo" data-url="{{item.url}}" catchtap='jumpUrl'>
+                    <image style="width:100rpx; height: 100rpx;" src="{{item.image}}" mode="aspectFit"/>
+                    <text class="logotext">{{item.title}}</text>
+                </view>
+            </block>
+        </view>
+
+        <view class="flex-col">
+          <view class="flex-col" style="width:95%;">
+            <view class="flex-row from-start">
+              <text style="margin-right: 2px;">最近上新</text>
+              <view style="width:22rpx;height:22rpx;">
+                <image style="width: 100%;height:100%;margin-top:0px;" src="/images/arrowright.png" mode="aspectFill" />
+              </view>
+            </view>
+            <view class="line-ss"></view>
+            <view class="flex-row">
+              <scroll-view scroll-x style="width:100%; height:250rpx;margin-top:10rpx;white-space: nowrap;">
+                  <block wx:for-items="{{newGoods}}">
+                      <view class="margin-right-s" style="width:25%;display:inline-block;">
+                        <view class="flex-col" catchtap="getGoodInfo"  data-id="{{item.id}}" data-name="{{item.name}}">
+                          <image style="width:100%;" src="{{item.imgUrl}}" mode="widthFix"/>
+                          <text style="font-size:32rpx;color:#FF0000; margin-top:10rpx;">￥{{item.price}}</text>
+                        </view>
+                      </view>
+                  </block>
+              </scroll-view>
+            </view>
+          </view>
+
+          <view class="flex-col" style="width:95%;">
+            <view class="flex-row from-start">
+              <text style="margin-right: 2px;">热销分类</text>
+              <image style="width: 22rpx; height:22rpx;margin-top:0px;" src="/images/arrowright.png" mode="aspectFill" />
+            </view>
+            <view class="line-ss"></view>
+            <view class="flex-row">
+              <scroll-view scroll-x style="width:100%; height:250rpx;margin-top:10rpx;white-space: nowrap;">
+                  <block wx:for-items="{{hotCategories}}">
+                      <view class="margin-right-s" style="width:25%;display:inline-block" catchtap='getGoodsByCategory' data-id="{{item.id}}" data-name="{{item.name}}">
+                        <view class="flex-col">
+                          <image style="width:100%;" src="{{item.typicalImg}}" mode="widthFix"/>
+                          <text style="font-size:32rpx;color:#FF0000; margin-top:10rpx;">{{item.name}}</text>
+                        </view>
+                      </view>
+                  </block>
+              </scroll-view>
+            </view>
+          </view>
+        </view>
+
+        <view class="page-margin page-column">
+            <view class="page-row" style="width:100%;justify-content:space-between">
+                <view style="height:40rpx;">
+                    <text style="margin-right: 2px;">热销商品</text>
+                    <image style="width: 22rpx; height:22rpx;margin-top:0px;" src="/images/arrowright.png" mode="aspectFill" />
+                </view>
+            </view>
+            <view class="line-ss"></view>
+            <view class="flex-col">
+              <block wx:if="{{hotGoods.length>0}}">
+                <block wx:for="{{hotGoods}}">
+                  <view class="flex-row align-start margin-top-s" bindtap="getGoodInfo" data-id="{{item.id}}" data-name="{{item.name}}">
+                    <image src="{{item.imgUrl}}" style="width:30%;" mode="widthFix" class="margin-left-s"></image>
+                    <view class="flex-col align-start margin-left-m" style="width:65%;">
+                      <text class="ellipsis-single">{{item.name}}</text>
+                      <block wx:if="{{item.isDiscount==true}}">
+                        <view class="flex-col align-start">
+                          <text style="text-decoration:line-through;">售价：￥{{item.price}}</text>
+                          <text style="color:#d81e06">促销价：￥{{item.discountPrice}}</text>
+                        </view>
+                      </block>
+                      <block wx:else>
+                        <text class="ellipsis">售价：￥{{item.price}}</text>
+                      </block>
+                      <text class="ellipsis color-gray">销量：{{item.saleCount}}件</text>
+                      <!--<text class="ellipsis color-gray">上架日期：{{item.createDate}}</text>-->
+                      <text class="ellipsis color-gray">好评率：{{item.goodEvaluateRate}}%</text>
+                    </view>
+                  </view>
+                </block>
+                <view class="line-ss"></view>
+              </block>
+            </view>
+        </view>
+
+    </scroll-view>
+</view>

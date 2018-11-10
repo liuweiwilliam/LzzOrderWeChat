@@ -1,0 +1,56 @@
+<view class="page" wx:if="{{loaded}}">
+  <view class="flex-col">
+    <block wx:if="{{addressList.length>0}}">
+      <block wx:for="{{addressList}}">
+        <view class="flex-row margin-top-m" style="justify-content:space-between;width:95%;" data-id="{{item.id}}" catchtap='selectAddress'>
+          <text>{{item.name}}</text>
+          <text>{{item.phone}}</text>
+        </view>
+        <view class="flex-row margin-top-m from-start" style="width:95%;" data-id="{{item.id}}" catchtap='selectAddress'>
+          <text>{{item.detail}}</text>
+        </view>
+        <view class="line-s"></view>
+        <view class="flex-row margin-top-s">
+          <view class="flex-row" style="width:95%;">
+            <block wx:if="{{item.usualFlag=='1'}}">
+              <view class="flex-row" data-index="{{index}}" style="justify-content:flex-start;" data-id="{{item.id}}"  catchtap="checkSingle">
+                <icon type="success" color="#ff8c00"></icon>
+                <text class="theme">默认地址</text>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="flex-row" data-index="{{index}}" style="justify-content:flex-start;" data-id="{{item.id}}"          catchtap="checkSingle">
+                <icon type="success" color="#bfbfbf"></icon>
+                <text style="color:#bfbfbf">设为常用</text>
+              </view>
+            </block>
+            <view class="flex-row">
+              <view class="flex-row" style="justify-content:flex-end;">
+                <image src="/images/base/edit.png" style="width:20%;height:50rpx;" mode="aspectFit" data-id="{{item.id}}" catchtap='editAddress'></image>
+                <text catchtap='editAddress' data-id="{{item.id}}">编辑</text>
+                <image src="/images/base/delete.png" class="margin-left-m" style="width:20%;height:50rpx;" mode="aspectFit" data-id="{{item.id}}" catchtap='deleteAddress'></image>
+                <text catchtap='deleteAddress' data-id="{{item.id}}">删除</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="line-m margin-top-s" style="width:100%;"></view>
+      </block>
+    </block>
+    <block wx:else>
+      <view class="margin-top-l flex-row" style="width:95%">
+        <image src="{{basePath+'/images/wukong/wukong-0.png'}}" style="width:40%;" mode="widthFix"></image>
+        <view class="flex-col" style="width:60%">
+          <text class="color-gray">您当前没有地址信息</text>
+          <text class="color-gray">请点击下方添加按钮添加</text>
+        </view>
+      </view>
+    </block>
+    <view class="show-bottom"></view>
+    
+    <view class="bottom flex-row" style="background-color:#ff8c00;" bindtap='addAddress'>
+      <text>添加新地址</text>
+    </view>
+  </view>
+</view>

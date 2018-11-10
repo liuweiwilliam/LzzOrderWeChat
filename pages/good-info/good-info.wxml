@@ -1,0 +1,191 @@
+<!--pages/good-info/good-info.wxml-->
+<view class="page" wx:if="{{loaded}}">
+  <view class="flex-col">
+    <view class="head">
+      <swiper indicator-dots="false" autoplay="true" interval="3000" duration="1200" style="width:100%;height:365rpx;" class="flex-row">
+          <block wx:for-items="{{goodInfo.swiperImgs}}">
+              <swiper-item style="width:100%;">
+                  <image style="width:100%;" class="swiper-item" src="{{item.imgUrl}}" mode="widthFix"/>
+              </swiper-item>
+          </block>
+      </swiper>
+    </view>
+    <view class="name">
+      <view class="flex-row">
+        <view style="width:96%;margin-left:2%;margin-right:2%;" class="flex-col align-start">
+          <text class="ellipsis">{{goodInfo.name}}</text>
+          <block wx:if="{{goodInfo.isDiscount=='1'}}">
+            <view class="flex-row" style="justify-content:left;">
+              <text class="red">￥{{goodInfo.discountPrice}}</text>
+              <text class="font-s remove margin-left-s">￥{{goodInfo.price}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="flex-row" style="justify-content:left;">
+              <text class="red margin-left-s">￥{{goodInfo.price}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="line-m"></view>
+    <!-- 
+    <view class="coupon">
+      <view class="flex-row margin-left-s" style="justify-content:left;" bindtap="showOrHideCoupon">
+        <text style="width:15%">促销</text>
+        <view class="margin-left-s flex-row" style="justify-content:left;width:70%;">
+          <block wx:for-items="{{coupons}}">
+            <button class="coupon-btn" data-couponId="{{item.id}}" style="font-size:60%;margin:0 3rpx" catchtap="getCouponById"><text class="red">{{item.name}}</text></button>
+          </block>
+        </view>
+        <view style="width:15%;" class="flex-row">
+          <block wx:if="{{initStatus.couponShow=='1'}}">
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-down.png"></image>
+          </block>
+          <block wx:else>
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-up.png"></image>
+          </block>
+        </view>
+      </view>
+      <view class="coupon-info {{initStatus.couponShow=='1'?'show':'hide'}}">
+        <view class="line-s"></view>
+        <view class="flex-col" style="align-items:left;">
+          <block wx:for-items="{{coupons}}">
+            <view class="flex-row" style="align-items:flex-start;">
+              <button class="coupon-btn margin-left-s" data-couponId="{{item.id}}" style="font-size:60%;margin:0 10rpx;" catchtap="getCouponById"><text class="red">{{item.name}}</text></button>
+              <text class="font-s" style="width:80%">{{item.describe}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="line-m"></view>
+    -->
+    <view class="format">
+      <view class="flex-row margin-left-s" style="justify-content:left;" bindtap="showOrHideFormat">
+        <text style="width:85%">规格</text>
+        <view style="width:15%;" class="flex-row">
+          <!-- 
+          <block wx:if="{{initStatus.formatShow=='1'}}">
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-down.png"></image>
+          </block>
+          <block wx:else>
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-up.png"></image>
+          </block>
+          -->
+        </view>
+      </view>
+      <block wx:if="{{initStatus.formatShow=='1'}}">
+        <view class="format-info {{initStatus.formatShow=='1'?'show':'hide'}}">
+          <view class="line-s"></view>
+          <view class="flex-row" style="justify-content:left;">
+            <block wx:for-items="{{goodInfo.formats}}">
+              <block wx:if="{{item.id==goodInfo.curSelectFormat}}">
+                <button style="font-size:60%;margin:0 10rpx;" class="selected" bindtap="changeType" data-typeid="{{item.id}}"><text class="white">{{item.name}}</text></button>
+              </block>
+              <block wx:else>
+                <button style="font-size:60%;margin:0 10rpx;" bindtap="changeType" data-typeid="{{item.id}}"><text class="red">{{item.name}}</text></button>
+              </block>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="line-m"></view>
+
+    <view class="taste">
+      <view class="flex-row margin-left-s" style="justify-content:left;" bindtap="showOrHideTaste">
+        <text style="width:85%">口味</text>
+        <view style="width:15%;" class="flex-row">
+          <!-- 
+          <block wx:if="{{initStatus.tasteShow=='1'}}">
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-down.png"></image>
+          </block>
+          <block wx:else>
+            <image style="width:40%;" mode="widthFix" src="/images/base/arrow-up.png"></image>
+          </block>
+          -->
+        </view>
+      </view>
+      <block wx:if="{{initStatus.tasteShow=='1'}}">
+        <view class="taste-info">
+          <view class="line-s"></view>
+          <view class="flex-row" style="justify-content:left;">
+            <block wx:for-items="{{goodInfo.tastes}}">
+              <block wx:if="{{item.id==goodInfo.curSelectTaste}}">
+                <button style="font-size:60%;margin:0 10rpx;" class="selected" bindtap="changeTaste" data-tasteid="{{item.id}}"><text class="white">{{item.name}}</text></button>
+              </block>
+              <block wx:else>
+                <button style="font-size:60%;margin:0 10rpx;" bindtap="changeTaste" data-tasteid="{{item.id}}"><text class="red">{{item.name}}</text></button>
+              </block>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="line-m"></view>
+
+    <view class="evaluate">
+      <view class="flex-row margin-left-s" style="justify-content:left;">
+        <text style="width:75%">评价</text>
+        <view style="width:25%;" class="flex-row">
+          <text class="red font-s">{{goodInfo.goodEvaluateRate}}%</text>
+          <text class="red font-s">好评</text>
+        </view>
+      </view>
+      <view class="evaluate-info flex-col">
+        <block wx:if="{{goodInfo.evaluate.contents}}">
+          <view class="flex-row margin-left-m" style="justify-content:left;">
+            <image src="{{goodInfo.evaluate.headImgUrl}}" style="width:5%;border-radius:100%;" mode="widthFix"></image>
+            <text class="font-s margin-left-s" style="">{{goodInfo.evaluate.nickName}}</text>
+            <image src="{{goodInfo.evaluate.levelImgUrl}}" class="margin-left-s" style="width:5%;" mode="widthFix"></image>
+          </view>
+          <view class="flex-row" >
+            <text class="font-s" style="width:95%;">{{goodInfo.evaluate.contents}}</text>
+          </view>
+          <view class="flex-row" style="justify-content:left;width:95%;">
+            <text class="font-s gray">{{goodInfo.evaluate.type}}</text>
+          </view>
+        </block>
+        <block wx:else class="">
+          <text class="font-s">当前商品没有评价信息</text>
+        </block>
+        <view class="flex-row" style="" data-id="{{goodInfo.id}}" catchtap="getEvaluate">
+          <button class="font-s" style="margin:0 3rpx"><text class="red">更多评价</text></button>
+        </view>
+      </view>
+    </view>
+    <view class="line-m"></view>
+
+    <view class="details flex-col">
+      <text>商品详情</text>
+      <block wx:for="{{goodInfo.infoImgs}}">
+        <image style="width:100%;" mode="widthFix" src="{{item.imgUrl}}" class="margin-top-s"></image>
+      </block>
+    </view>
+
+    <view class="show-bottom"></view>
+    <view class="bottom flex-row">
+      <view style="width:15%" class="flex-col" catchtap="callKefu">
+        <image src="/images/base/kefu.png" style="width:50%" mode="widthFix"></image>
+        <text class="font-s">商家</text>
+      </view>
+      <view style="width:15%" class="flex-col" catchtap="setInterest">
+        <block wx:if="{{goodInfo.isInterest=='0'}}">
+          <image src="/images/base/shoucang.png" style="width:50%" mode="widthFix"></image>
+          <text class="font-s">收藏</text>
+        </block>
+        <block wx:else>
+          <image src="/images/base/shoucang-hl.png" style="width:50%" mode="widthFix"></image>
+          <text class="font-s">已收藏</text>
+        </block>
+      </view>
+      <view style="width:35%;height:100%;" class="flex-row bc-theme2" catchtap='addToCart'>
+        <text style="color:white">加入购物车</text>
+      </view>
+      <view style="width:35%;height:100%;" class="flex-row bc-theme" catchtap='submitOrder'>
+        <text style="color:white">立即购买</text>
+      </view>
+    </view>
+  </view>
+</view>

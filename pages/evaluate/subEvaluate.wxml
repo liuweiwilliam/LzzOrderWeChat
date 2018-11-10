@@ -1,0 +1,99 @@
+<!--pages/evaluate/subEvaluate.wxml-->
+<form bindsubmit="subEvaluate" style="width:100%;" wx:if="{{loaded}}">
+<view class="flex-col margin-top-s margin-bottom-xxl">
+  <block wx:for="{{orderInfo}}" wx:for-item="goodInfo" wx:for-index="goodIndex">
+    <!--满意度区-->
+    <view class="flex-row" style="width:95%;justify-content:flex-start;">
+      <image style="width:15%;" mode="widthFix" src="{{goodInfo.goodImgUrl}}"></image>
+      <view class="flex-col" style="width:85%;">
+        <view class="flex-col align-start margin-left-m">
+          <text class="good-name font-s color-gray" style="width:95%;">{{goodInfo.goodName}}</text>
+          <text class="good-name font-s color-gray" style="width:95%;">规格：{{goodInfo.format}}-{{goodInfo.taste}}</text>
+        </view>
+
+        <view class="flex-row margin-left-m from-start">
+          <text class="font-s color-gray">满意度：</text>
+          <view class="flex-row" style="width:50%;justify-content:flex-start;" data-goodIndex="{{goodIndex}}" catchtap="changeEvaluateLevel">
+            <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="1" 
+                src="{{goodInfo.evaluateLevel>=1?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+            <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="2" 
+                src="{{goodInfo.evaluateLevel>=2?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+            <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="3" 
+                src="{{goodInfo.evaluateLevel>=3?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+            <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="4" 
+                src="{{goodInfo.evaluateLevel>=4?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+            <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="5" 
+                src="{{goodInfo.evaluateLevel>=5?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+          </view>
+          
+          <block wx:for="{{evaluateLevelDic}}" wx:for-item="dic">
+            <block wx:if="{{goodInfo.evaluateLevel==dic.level}}">
+              <text class="font-s color-dgray">{{dic.text}}</text>
+            </block>
+          </block>
+        </view> 
+      </view>
+    </view>
+
+    <!--分割线-->
+    <view class="line-ss margin-top-s"></view>
+
+    <!--评价内容区-->
+    <view class="flex-row" style="width:95%;">
+      <textarea class="margin-top-s" style="width:100%;height:200rpx;" maxlength="-1" row="5" name="evaluateContent-{{goodInfo.orderInfoId}}" placeholder='请填写详细评价信息（选填）' value=""></textarea>
+    </view>
+
+    <!--评价图片区-->
+    <view class="flex-row-wrap from-start align-start" style="width:95%;">
+      <view wx:for="{{goodInfo.evaluateImgs}}" wx:for-item="goodEvaluateImgs" wx:for-index="imgIndex" class="flex-row align-start margin-top-m" style="width:18%;">
+        <image src="{{goodEvaluateImgs}}" style="width:75%" mode="widthFix" catchtap="previewImg" data-goodIndex="{{goodIndex}}" data-imgIndex="{{imgIndex}}"></image>
+        <image src="/images/base/delImg.png" style="width:25%;position:relative;top:-16rpx;left:-16rpx;" mode="widthFix" catchtap="delImg" data-goodIndex="{{goodIndex}}" data-imgIndex="{{imgIndex}}"></image>
+      </view>
+      <!--<image src="/images/base/addPics.png" style="width:18%;" mode="widthFix" data-goodIndex="{{goodIndex}}" class="margin-top-m" catchtap="selectImg"></image>-->
+    </view>
+    <!--分割线-->
+    <view class="line-m"></view> 
+  </block>
+
+  <!--店铺评价-->
+  <view class="flex-col margin-top-m" style="width:95%;">
+    <view class="flex-row from-start">
+      <image src="/images/base/addPics.png" style="width:8%" mode="widthFix"></image>
+      <text class="margin-left-s">店铺评分</text>
+    </view>
+    <view class="flex-row from-start margin-top-s">
+      <text class="color-dgray">服务态度：</text>
+      <view class="flex-row" style="width:50%;justify-content:flex-start;" catchtap="changeShopEvaluateLevel">
+        <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="1" 
+            src="{{shopEvaluateLevel>=1?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+        <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="2" 
+            src="{{shopEvaluateLevel>=2?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+        <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="3" 
+            src="{{shopEvaluateLevel>=3?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+        <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="4" 
+            src="{{shopEvaluateLevel>=4?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+        <image mode="widthFix" style="width:15%" class="margin-left-s" data-level="5" 
+            src="{{shopEvaluateLevel>=5?'/images/base/evaluate-hl.png':'/images/base/evaluate.png'}}"></image>
+      </view>
+      
+      <block wx:for="{{evaluateLevelDic}}">
+        <block wx:if="{{shopEvaluateLevel==item.level}}">
+          <text class="font-m color-dgray">{{item.text}}</text>
+        </block>
+      </block>
+      
+      
+    </view>
+    
+  </view>
+  <view wx:if="{{shopEvaluateLevel<=3}}" class="flex-col" style="">
+          <view class="line-s"></view>
+          <textarea class="margin-top-s font-s" name="evaluateContentShop" style="width:95%;height:200rpx;" maxlength="-1" row="5" placeholder="亲爱的顾客，如果我们哪里做的不够好让您不够满意请告诉我们,以便我们改进后为您提供更好的服务！点击填写建议（选填）"></textarea>
+  </view>
+  <view class="margin-bottom-xxl"></view>
+  <!--提交评价按钮-->
+  <view class="flex-row bottom bc-theme">
+    <button  formType="submit" plain style="width:100%;border:none;">保存</button>
+  </view>
+</view>
+</form>

@@ -1,0 +1,123 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": false,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.6.0",
+	"appid": "wxada569816e08dfc2",
+	"projectname": "%E6%B5%8B%E8%AF%95",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "cart",
+					"pathName": "pages/cart/cart",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "category",
+					"pathName": "pages/category/category",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "good-info",
+					"pathName": "pages/good-info/good-info",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "good-list",
+					"pathName": "pages/good-list/good-list",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "good-info",
+					"pathName": "pages/good-info/good-info",
+					"query": "goodName=sdsd&goodId=220024"
+				},
+				{
+					"id": -1,
+					"name": "coupon",
+					"pathName": "pages/coupon/coupon",
+					"query": "id=002"
+				},
+				{
+					"id": -1,
+					"name": "address",
+					"pathName": "pages/address/address",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "addressAdd",
+					"pathName": "pages/address/addressAddOrUpdate",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "order",
+					"pathName": "pages/order/order",
+					"query": "status=待付款"
+				},
+				{
+					"id": 9,
+					"name": "submitOrder",
+					"pathName": "pages/order/submitOrder",
+					"query": "orderId=320010"
+				},
+				{
+					"id": -1,
+					"name": "getEvaluate",
+					"pathName": "pages/evaluate/getEvaluate",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "subEvaluate",
+					"pathName": "pages/evaluate/subEvaluate",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "me",
+					"pathName": "pages/me/me",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "bindphone",
+					"pathName": "pages/bindPhone/bindPhone",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "关于",
+					"pathName": "pages/about/about",
+					"query": ""
+				}
+			]
+		}
+	}
+}

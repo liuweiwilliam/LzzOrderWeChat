@@ -1,0 +1,27 @@
+<!--pages/bindPhone/bindPhone.wxml-->
+<view class="flex-col margin-top-m">
+  <view class="head flex-row">
+    <text class="font-l">手机号绑定</text>
+  </view>
+  <view class="head flex-row">
+    <text class="color-gray" style="width:90%;text-align:center;">请填写您的手机号，点击获取验证码，填写验证之后点击绑定</text>
+  </view>
+  <view class="line-s"></view>
+  <view class="flex-row from-start" style="width:90%;">
+      <text style="width:20%;" class="color-text font-l margin-top-s margin-bottom-s">手机号</text>
+      <input class="bc-bc margin-left-m font-m" style='width:75%;' name="phone" bindinput="inputPhone" placeholder=''/>
+  </view>
+  <view class="line-s"></view>
+  <view class="flex-row from-start" style="width:90%;">
+      <text style="width:20%;" class="color-text font-l margin-top-s margin-bottom-s">验证码</text>
+      <input class="bc-bc font-m margin-left-m" style='width:45%;' name="code" bindinput="inputCode" placeholder=''/>
+      <text wx:if="{{canGetCode}}" class="font-s color-theme" catchtap="getCode">获取验证码</text>
+      <text wx:else class="color-theme font-s">重新获取({{restSecond}})</text>
+  </view>
+  <view class="line-s"></view>
+
+  <view class="flex-row bottom bc-theme" catchtap="subBind">
+      <button plain style="width:100%;border:none;"><text class="white">绑定</text></button>
+  </view>
+</view>
+

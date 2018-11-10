@@ -1,0 +1,54 @@
+<!--pages/evaluate/getEvaluate.wxml-->
+<view class="flex-col" wx:if="{{loaded}}">
+  <view class="line-s margin-bottom-s"></view>
+  <block wx:if="{{evaluateList.length>0}}">
+    <block wx:for="{{evaluateList}}" wx:for-item="eval">
+      <view class="flex-col">
+        <view class="flex-row userinfo from-start" style="width:95%;">
+          <view style="width:10%;" class="flex-row">
+            <image style="width:100%;" mode="widthFix" src="{{eval.imgUrl}}"></image>
+          </view>
+          <view style="" class="margin-left-s flex-row from-start align-center">
+            <text class="font-s">{{eval.uname}}</text>
+            <text class="margin-left-s font-s">{{eval.userLevel}}</text>
+            <image style="width:10%;" mode="widthFix" src="{{eval.levelImgUrl}}"></image>
+          </view>
+        </view>
+        <!--规格-->
+        <view class="flex-row format margin-top-s from-start" style="width:95%;">
+          <view class="flex-row from-start" style="width:30%;">
+            <text class="date font-s color-gray">{{eval.date}}</text>
+          </view>
+          <text class="format-info margin-left-s font-s color-gray">规格：{{eval.format}}</text>
+        </view>
+        <!--评价等级-->
+        <view class="flex-row format margin-top-s from-start" style="width:95%;">
+          <text class="format-info font-s color-gray">满意度：</text>
+          <block wx:for="{{[1,2,3,4,5]}}" wx:for-item="standurd">
+            <block wx:if="{{eval.evaluateLevel<standurd}}">
+              <image style="width:5%;" class="margin-left-s" src="/images/base/evaluate.png" mode="widthFix"></image>
+            </block>
+            <block wx:else>
+              <image style="width:5%;" class="margin-left-s" src="/images/base/evaluate-hl.png" mode="widthFix"></image>
+            </block>
+          </block>
+        </view>
+        <view class="flex-row contents margin-top-s from-start" style="width:95%">
+          <text class="font-s">{{eval.contents}}</text>
+        </view>
+        <view class="flex-row-wrap contentImgs margin-top-s " style="width:95%;justify-content:flex-start">
+          <block wx:for="{{eval.contentImgs}}" wx:for-item="img" wx:for-index="imgIndex">
+            <image data-index="{{index}}" data-imgIndex="{{imgIndex}}" catchtap="previewImg" class="margin-top-s margin-left-s" style="width:30%;" mode="widthFix" src="{{img}}"></image>
+          </block>
+        </view>
+        <view class="line-s margin-bottom-s"></view>
+      </view>
+    </block>
+  </block>
+  <block wx:if="{{evaluateList.length==0}}">
+    <view class="flex-row" style="width:95%;">
+      <image src="{{basePath}}images/wukong/wukong-0.png" style="width:50%" mode="widthFix"></image>
+      <text>暂时没有该商品的评价信息哟！</text>
+    </view>
+  </block>
+</view>

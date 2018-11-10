@@ -1,0 +1,100 @@
+<!--pages/order/submitOrder.wxml-->
+<view class="page" wx:if="{{loaded}}">
+  <view class="flex-col">
+    <view class="flex-row address margin-top-s" catchtap='changeAddress'>
+      <view class="flex-row" style="width:10%;">
+        <image src="/images/base/address.png" mode="widthFix"></image>
+      </view>
+      <block wx:if="{{address.id}}">
+        <view class="flex-col" style="width:80%;">
+          <view class="flex-row" style="justify-content:space-between">
+            <text class="color-text font-m">收货人：{{address.name}}</text>
+            <text class="color-text font-m">{{address.phone}}</text>
+          </view>
+          <view class="flex-row" style="justify-content:flex-start">
+            <view class="flex-row" style="width:95%;">
+              <text style="width:100%" class="font-s">收货地址：{{address.detail}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="flex-row margin-top-s" style="width:95%">
+          <text class="color-gray">您当前没有收货地址，点击添加</text>
+        </view>
+      </block>
+      <view class="flex-row" style="width:10%;">
+        <image src="/images/base/arrow-right.png" mode="widthFix" style="width:70%"></image>
+      </view>
+    </view>
+    
+    <view class="line-m"></view>
+    <block wx:for="{{orderInfoList}}">
+      <view class="flex-row goodinfo bc-lightgray">
+        <view class="flex-row" style="width:95%">
+          <view class="flex-row" style="width:30%">
+            <image src="{{item.imgUrl}}" mode="widthFix"></image>
+          </view>
+          <view class="flex-col" style="width:70%">
+            <view class="flex-row from-start">
+              <text class="color-text font-s">{{item.name}}</text>
+            </view>
+            <view class="flex-row" style="justify-content:flex-start">
+              <text class="color-text font-s color-gray">{{item.format}}-{{item.taste}}</text>
+            </view>
+            <view class="flex-row" style="justify-content:space-between">
+              <text class="color-text font-m color-theme">￥{{item.price}}</text>
+              <view class="flex-row" style="justify-content:flex-end">
+                <image src="/images/base/dec.png" mode="widthFix" style="width:12%;" data-id="{{item.id}}" catchtap='decCount'></image>
+                <text class="color-text margin-left-m margin-right-m">{{item.count}}</text>
+                <image src="/images/base/add.png" mode="widthFix" style="width:12%;" data-id="{{item.id}}" catchtap='addCount'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="line-s"></view>
+    </block>  
+    
+    <view class="flex-row express margin-top-s margin-bottom-s">
+      <view class="flex-row" style="width:95%;justify-content:space-between">
+        <view class="flex-row" style="justify-content:space-between;width:30%;">
+          配送方式
+        </view>
+        <view class="flex-row" style="justify-content:flex-end;width:70%;">
+          <picker style="width:100%;" bindchange='expressChange' range="{{expressList.names}}">
+            <view class="flex-row" style="width:100%;justify-content:flex-end;">
+              <text class="margin-left-m margin-right-m" style="">{{expressName}}</text>
+              <image src="/images/base/arrow-right.png" style="width:10%;" mode="widthFix"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <view class="line-s"></view>
+
+    <view class="flex-row comment margin-top-s margin-bottom-s">
+      <view class="flex-row" style="width:95%;justify-content:space-between">
+        <view class="flex-row" style="justify-content:space-between;width:30%;">
+          买家留言:
+        </view>
+        <view class="flex-row" style="justify-content:flex-end">
+          <input placeholder='选填（对本次交易的说明）' class="bc-bc ellipsis" style='width:100%;' bindinput='inputComment'></input>
+        </view>
+      </view>
+    </view>
+    <view class="bottom flex-col">
+      <view class="line-ss" style="margin-bottom:0;"></view>
+      <view class="flex-row" style="height:100%;">
+        <view class="flex-row price" style="width:60%;height:100%;">
+          <text class="font-s">合计金额:</text>
+          <text class="font-s color-theme">￥{{totalPrice}}</text>
+        </view>
+        <view class="flex-row bc-theme" style="width:40%;height:100%;" catchtap='submitOrder'>
+          <text class="white">提交订单</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<!--pages/address/addressAdd.wxml-->
+<view class="page">
+  <form bindsubmit="saveAddress">
+  <view class="flex-col">
+    <view class="flex-row">
+      <view style="width:95%;height:100rpx;" class="flex-row">
+        <text style="width:25%;" class="color-text">收货人</text>
+        <input class="bc-bc" value="{{addressInfo.name}}" style='width:80%;' name="name" bindinput="inputName"/>
+      </view>
+    </view>
+    <view class="line-ss"></view>
+    <view class="flex-row">
+      <view style="width:95%;height:100rpx;" class="flex-row">
+        <text style="width:25%;" class="color-text">联系电话</text>
+        <input class="bc-bc" value="{{addressInfo.phone}}" style='width:80%;' type='number' name="phone" bindinput="inputPhone"/>
+      </view>
+    </view>
+    <view class="line-ss"></view>
+    <view class="flex-row">
+      <view style="width:95%;height:100rpx;" class="flex-row">
+        <text style="width:25%" class="color-text">所在地区</text>
+        <picker mode="region" style="width:80%;text-align:right;" value="{{addressInfo.area}}" name="area" bindchange='regionChange'><text style="width:100%;">{{addressInfo.area[0]}}{{addressInfo.area[1]}}{{addressInfo.area[2]}}</text></picker>
+      </view>
+    </view>
+    <view class="line-ss"></view>
+    
+    <view class="flex-row">
+      <view style="width:95%" class="flex-row">
+        <textarea class="margin-top-s" style="width:100%;height:200rpx;" maxlength="-1" row="5" placeholder='请填写详细地址（乡镇街道信息）, 不少于5个字' value="{{addressInfo.detail}}" bindblur='inputDetail' name="detail"></textarea>
+      </view>
+    </view>
+    <view class="line-m"></view>
+    <view class="flex-row">
+      <view style="width:95%" class="flex-row">
+        <text style="width:20%;" class="color-text">设为默认</text>
+        <view style="width:80%;text-align:right">
+          <switch bindchange="changeDefault" name="usualFlag" style="color:#336699" checked='{{addressInfo.usualFlag=="1"}}'/>
+        </view>
+      </view>
+    </view>
+    
+    <view class="flex-row bottom bc-theme">
+      <button  formType="submit" plain style="width:100%;border:none;">保存</button>
+    </view>
+  </view>
+  </form>
+</view>

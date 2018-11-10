@@ -1,0 +1,139 @@
+<!--pages/me/me.wxml-->
+<view wx:if="{{loaded}}" class="page">
+  <view class="userinfo flex-row from-start bc-theme" style="height:200rpx;">
+    <view style="width:30%;" class="flex-row from-start margin-left-s">
+      <view style="width:80%">
+        <image src="{{initInfo.avatarUrl}}" style="border-radius:100%;width:80%;" mode="widthFix"></image>
+      </view>
+    </view>
+    <view class="flex-row from-start" style="width:70%;">
+      <view class="flex-col align-start" style="width:80%">
+        <view class="flex-row from-start">
+          <view style='width:20%'>
+            <image src="{{initInfo.curUserLevelTypical}}" mode="widthFix" style="width:100%"></image>
+          </view>
+          <text class="color-gray margin-left-s" style="color:#777777">{{initInfo.curUserLevel}}</text>
+        </view>
+        <block wx:if="{{initInfo.validateFlag!='1'}}">
+          <text class="margin-top-s underline" style="color:#777777" catchtap="bindPhone">点击绑定手机号</text>
+        </block>
+        <block wx:else>
+          <text class='margin-top-s' style="color:#777777">已绑定:{{initInfo.phone}}</text>
+        </block>
+      </view>
+      <view class="flex-col" style="width:20%"></view>
+    </view>
+  </view>
+  <view class="menuList" style="width:100%; display:flex; flex-direction: row;">
+    <view class="collect" style="width:50%; height:100rpx; margin-left:0.5%;display:flex;flex-direction:column;align-items:center;justify-content:center;" catchtap='getGoodsInterested'>
+      <text style="font-size:80%;color:#777777">{{initInfo.interestedCount}}</text>
+      <text style="font-size:80%;color:#777777">收藏夹</text>
+    </view>
+    <view class="recent" style="width:50%; height:100rpx; display:flex;flex-direction:column;align-items:center;justify-content:center;" catchtap='getGoodsViewed'>
+      <text style="font-size:80%;color:#777777">{{initInfo.viewGoodCount}}</text>
+      <text style="font-size:80%;color:#777777">足迹</text>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="order flex-col" style="margin-top:10rpx;">
+    <view class="order-title flex-row" style="height:50rpx;width:95%;" bindtap="manageOrders" data-type="全部">
+      <view style="width:50%;">
+        <text style="">我的订单</text>
+      </view>
+      <view style="width:50%;text-align:right;">
+        <text style='color:gray;font-size:80%;'>查看更多订单  ></text>
+      </view>
+    </view>
+    <view class="thin-gray-line"></view>
+    <view class="order-menu" style="height:150rpx; width:100%; display:flex; flex-direction: row;">
+      <view class="toPay" style="width:25%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;" bindtap="manageOrders" data-type="待付款">
+        <image src='{{baseImagePath}}/base/toPay.png' style='width:40%;' mode="widthFix"></image>
+        <text style="font-size:80%;color:#777777;margin-top:10%;">待付款</text>
+      </view>
+      <view class="toSend" style="width:25%;display:flex;flex-direction:column;align-items:center;justify-content:center;" bindtap="manageOrders" data-type="待发货">
+        <image src='{{baseImagePath}}/base/toSend.png' style='width:40%;' mode="widthFix"></image>
+        <text style="font-size:80%;color:#777777;margin-top:10%;">待发货</text>
+      </view>
+      <view class="toReceive" style="width:25%;display:flex;flex-direction:column;align-items:center;justify-content:center;" bindtap="manageOrders" data-type="待收货">
+        <image src='{{baseImagePath}}/base/toReceive.png' style='width:40%;' mode="widthFix"></image>
+        <text style="font-size:80%;color:#777777;margin-top:10%;">待收货</text>
+      </view>
+      <view class="toEvaluate" style="width:25%;display:flex;flex-direction:column;align-items:center;justify-content:center;" bindtap="manageOrders" data-type="待评价">
+        <image src='{{baseImagePath}}/base/toEvaluate.png' style='width:40%;' mode="widthFix"></image>
+        <text style="font-size:80%;color:#777777;margin-top:10%;">待评价</text>
+      </view>
+      <!--<view class="toReturn" style="width:20%;display:flex;flex-direction:column;align-items:center;justify-content:center;" bindtap="manageOrders" data-type="退款/售后">
+        <image src='{{baseImagePath}}/base/toReturn.png' style='width:40%;' mode="widthFix"></image>
+        <text style="font-size:80%;color:#777777;margin-top:10%;">退款/售后</text>
+      </view>-->
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="order flex-col" style="margin-top:10rpx">
+    <view class="order-title flex-row" style="height:50rpx;width:95%;" bindtap="manageAddress">
+      <view style="width:50%;">
+        <text style="">收货地址</text>
+      </view>
+      <view style="width:50%;text-align:right;">
+        <text style='color:gray;font-size:80%;'>管理收货地址  ></text>
+      </view>
+    </view>
+    <view class="thin-gray-line"></view>
+    <view class="order-menu flex-row" style="height:150rpx;">
+      <view class="toPay flex-col" style="height:100%;width:95%;">
+        <view class="flex-row">
+          <text class="color-gray" style="width:50%">{{initInfo.usualAddress.name}}</text>
+          <text class="color-gray" style="width:50%;text-align:right;">{{initInfo.usualAddress.phone}}</text>
+        </view>
+        <text class="color-gray ellipsis-single" style="width:100%">{{initInfo.usualAddress.detail}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="vip">
+    <view class="vip-title" style="height:80rpx;display:flex;align-items:center;justify-content:center;">
+      <image src='{{baseImagePath}}/base/jifen.png' style='height:40rpx;width:40rpx;'></image>
+      <text decode="{{true}}">我的天空值</text>
+    </view>
+    <view class="vip-content" style="height:400rpx;display:flex;flex-direction:row;">
+      <view style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <view style="display:flex;flex-direction:row;align-items:center;justify-content:center;">
+          <text style='font-size:200%;color:#FF4500'>{{initInfo.curIntegration}}</text>
+          <image src="{{baseImagePath}}/base/up-arrow.png" style="width:50rpx;height:50rpx;margin-top:-10rpx;"></image>
+        </view>
+        <text style='font-size:80%;color:#FF4500;margin-top:5%;'>差{{initInfo.nextLevelIntegration}}分成为{{initInfo.nextLevelName}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="vip">
+    <view class="vip-title" style="height:80rpx;display:flex;align-items:center;justify-content:center;">
+      <image src='{{baseImagePath}}/base/jifen.png' style='height:40rpx;width:40rpx;'></image>
+      <text decode="{{true}}">更多活动</text>
+    </view>
+    <view class="vip-content flex-row" style="">
+      <image src="/images/base/qidai.jpg" mode="widthFix" style="width:100%"></image>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="vip flex-col">
+    <view class="vip-title" style="height:80rpx;display:flex;align-items:center;justify-content:center;">
+      <image src='{{baseImagePath}}/base/jifen.png' style='height:40rpx;width:40rpx;'></image>
+      <text decode="{{true}}">联系我们</text>
+    </view>
+    <view class="line-ss"></view>
+    <view class="vip-content flex-row" style="">
+      <image src="/images/base/ouraddress.png" mode="widthFix" style="width:100%"></image>
+    </view>
+    <view class="line-ss"></view>
+    <view class="flex-col">
+      <view class="flex-row from-start" style="width:95%">
+        <text class="color-gray font-s">地址：安徽省宿州市埇桥区大河南街刘小五食品批发</text>
+      </view>
+      <view class="flex-row from-start" style="width:95%">
+        <text class="color-gray font-s">联系我们：</text>
+        <text class="color-gray font-s underline" catchtap="connectUs">0557-3045676</text>
+      </view>
+    </view>
+  </view>
+</view>

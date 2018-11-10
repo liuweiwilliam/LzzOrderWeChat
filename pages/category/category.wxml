@@ -1,0 +1,14 @@
+<!--pages/category/category.wxml-->
+<view wx:if="{{loaded}}" class="page margin-bottom-xl">
+    <view class="flex-row margin-left-s" style="width:98%;flex-wrap:wrap;justify-content:left;">
+      <block wx:for="{{catList}}">
+        <view style="width:50%;" class="flex-row align-start margin-top-l" bindtap="getGoodsByCat" data-id="{{item.id}}" data-name="{{item.name}}">
+          <image src="{{item.imgUrl}}" style="width:40%;height:100%" mode="widthFix"></image>
+          <view class="flex-col align-start margin-left-s" style="width:58%;">
+            <text class="ellipsis">{{item.name}}</text>
+            <text class="ellipsis font-m color-gray">{{item.description}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+</view>

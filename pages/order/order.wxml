@@ -1,0 +1,54 @@
+<view class="navbar">  
+  <text wx:for="{{navbar}}" data-item="{{item}}" class="item {{currentTab==item ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>  
+</view>
+<view class="page margin-top-s" wx:if="{{loaded}}">
+  <view class="content flex-col">
+    <block wx:for="{{orderList}}" wx:for-item="order">
+      <view class="flex-col">
+        <block wx:for="{{order.goodList}}" wx:for-item="good">
+          <view class="flex-row margin-top-s bc-lightgray">
+            <view style="width:20%" class="flex-row">
+              <image src="{{good.typicalImg}}" style="width:90%" mode='widthFix'></image>
+            </view>
+            <view style="width:60%" class="flex-col align-start">
+              <text style='width:100%;' class="good-name font-s">{{good.name}}</text>
+              <view class="flex-row from-start">
+                <text style='width:100%;' class="good-name font-s color-gray">规格：{{good.format}}-{{good.taste}}</text>
+                <text style='width:100%;' class="good-name font-s color-gray"> 数量：{{good.count}}</text>
+              </view>
+            </view>
+            <view style="width:20%" class="flex-col from-start">
+              <text style='width:100%;' class="good-name font-s">￥{{good.discountPrice}}</text>
+              <text style='width:100%;' class="good-name font-s color-gray remove">￥{{good.price}}</text>
+            </view>
+          </view>
+        </block>
+        <view class="flex-col align-end" style="width:90%;">
+          <text class="color-theme" style='width:90%;text-align:right;'>订单状态 ： {{order.status}}</text>
+          <block data-id="{{order.id}}">
+            <button wx:if="{{order.status=='待付款'}}" class="bc-theme opr-btn" data-id="{{order.id}}" catchtap="pay">
+              <text class="white" decode="{{true}}">&emsp;付&emsp;&emsp;款&emsp;</text>
+            </button>
+            <button wx:if="{{order.status=='待发货'}}" class="bc-theme opr-btn" data-id="{{order.id}}" catchtap="pressOrder">
+              <text class="white" decode="{{true}}">提醒卖家发货</text>
+            </button>
+            <button wx:if="{{order.status=='待收货'}}" class="bc-theme opr-btn" data-id="{{order.id}}" catchtap="confirRecieved">
+              <text class="white" decode="{{true}}">&emsp;确认收货&emsp;</text>
+            </button>
+            <button wx:if="{{order.status=='待评价'}}" class="bc-theme opr-btn" data-id="{{order.id}}" catchtap="evaluate">
+              <text class="white" decode="{{true}}">&emsp;评&emsp;&emsp;价&emsp;</text>
+            </button>
+          </block>
+        </view>
+        <view class="flex-row">
+          <view style="width:90%;text-align:right;">
+            <text class="font-s">共计{{order.count}}件商品  合计：</text>
+            <text>￥{{order.totalPrice}}</text>
+            <text class="font-s">(含运费￥{{order.freight}})</text>
+          </view>
+        </view>
+        <view class="line"></view>
+      </view>
+    </block>
+  </view>
+</view>

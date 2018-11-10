@@ -1,0 +1,34 @@
+<!--pages/good-list.wxml-->
+<view class="page" wx:if="{{loaded}}">
+  <view class="flex-col margin-top-m">
+    <block wx:if="{{goods.length>0}}">
+      <block wx:for="{{goods}}">
+        <view class="flex-row align-start" bindtap="getGoodInfo" data-id="{{item.id}}" data-name="{{item.name}}">
+          <image src="{{item.imgUrl}}" style="width:40%;" mode="widthFix" class="margin-left-s"></image>
+          <view class="flex-col align-start margin-left-m" style="width:55%;">
+            <text class="ellipsis-single">{{item.name}}</text>
+            <block wx:if="{{item.isDiscount==true}}">
+              <view class="flex-col align-start">
+                <text style="text-decoration:line-through;">售价：￥{{item.price}}</text>
+                <text style="color:#d81e06">促销价：￥{{item.discountPrice}}</text>
+              </view>
+            </block>
+            <block wx:else>
+              <text class="ellipsis">售价：￥{{item.price}}</text>
+            </block>
+            <text class="ellipsis color-gray">销量：{{item.saleCount}}件</text>
+            <text class="ellipsis color-gray">上架日期：{{item.createDate}}</text>
+            <text class="ellipsis color-gray">好评率：{{item.goodEvaluateRate}}%</text>
+          </view>
+        </view>
+        <view class="line-s"></view>
+      </block>
+    </block>
+    <block wx:else>
+      <view class="flex-row" style="width:95%;">
+        <image src="{{basePath}}images/wukong/wukong-0.png" style="width:50%" mode="widthFix"></image>
+        <text>未找到任何商品哟！</text>
+      </view>
+    </block>
+  </view>
+</view>

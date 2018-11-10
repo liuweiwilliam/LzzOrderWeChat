@@ -1,0 +1,52 @@
+<view class="page" wx:if="{{loaded}}">
+  <view class="flex-col">
+    <block wx:for="{{cartList}}">
+      
+      <view class="flex-row" style="width:100%;height:250rpx;">
+          <block wx:if="{{item.checked=='1'}}">
+            <icon type="success" data-index="{{index}}" class="theme margin-left-m" catchtap="checkSingle"></icon>
+          </block>
+          <block wx:else>
+            <icon type="success" data-index="{{index}}" color="#bfbfbf" class="margin-left-m" catchtap="checkSingle"></icon>
+          </block>
+
+          <image src="{{item.imgUrl}}" style="width:30%;" mode="aspectFit" class="margin-left-m"></image>
+          <view class="flex-col from-start margin-left-s" style="width:40%;">
+            <text class="ellipsis">{{item.name}}</text>
+            <text class="color-gray">{{item.format}}-{{item.taste}}</text>
+            <text class="color-gray">￥{{item.price}} * {{item.count}}</text>
+          </view>
+          <view class="flex-col" style="width:26%;height:100%">
+            <!--<image src="{{basePath+'/images/base/arrow-up.png'}}" style="width:20%;height:30%" mode="aspectFit" catchtap='addCount' data-index="{{index}}"></image>-->
+            <input style="text-align:center;background-color:#fbf9fe;" confirm-type="done" type="number" value="{{item.count}}" bindblur='inputCount' data-index="{{index}}"></input>
+            <!--<image src="{{basePath+'/images/base/arrow-down.png'}}" style="width:20%;height:30%" mode="aspectFit" catchtap='desCount' data-index="{{index}}"></image>-->
+          </view>
+      </view>
+
+      <view class="line" style="width:100%;"></view>
+    </block>
+    <view class="show-bottom"></view>
+    <!--<view catchtap='uploadimg'>12322</view>-->
+    <view class="bottom flex-row">
+      <view style="width:70%" class="flex-row">
+        <view style="width:50%" catchtap="checkAll">
+        <block wx:if="{{checkedAll=='1'}}">
+          <icon type="success" class="theme margin-left-m"></icon>
+          <text class="margin-left-m">去选</text>
+        </block>
+        <block wx:else>
+          <icon type="success" color="#bfbfbf" class="margin-left-m"></icon>
+          <text class="margin-left-m">全选</text>
+        </block>
+        </view>
+        <view style="width:50%">
+          <text>合计：</text>
+          <text>￥{{totalPrice}}</text>
+        </view>
+      </view>
+      <view style="width:30%;height:100%;" class="flex-row bc-theme" catchtap="submitCart">
+        <text>结算</text>
+      </view>
+    </view>
+  </view>
+</view>
